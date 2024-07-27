@@ -1,0 +1,24 @@
+<h1>Formular de Înregistrare a Mașinii pentru Vânzare</h1>
+
+<form class="example-form">
+  <h4>Selectează marca dorită</h4>
+  <mat-form-field class="example-full-width">
+    <mat-label>Marca</mat-label>
+    <mat-select [(ngModel)]="selectedCar" name="food">
+      @for (car of cars; track car) {
+        <mat-option [value]="car.value">{{car.viewValue}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Leave a comment</mat-label>
+    <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+  </mat-form-field>
+</form>
+
+<section>
+  <div class="example-button-row">
+    <button mat-button>Save Post</button>
+  </div>
+</section>
