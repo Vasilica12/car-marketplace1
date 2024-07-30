@@ -1,0 +1,9 @@
+.small-card {
+    max-width: 300px; /* Adjust to desired width */
+    margin: auto;
+  }
+  
+  .small-card img.mat-card-image {
+    width: 100%;
+    height: auto;
+  }
