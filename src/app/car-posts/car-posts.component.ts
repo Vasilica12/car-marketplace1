@@ -10,5 +10,5 @@ import { PostListComponent } from './post-list/post-list.component';
   styleUrl: './car-posts.component.css'
 })
 export class CarPostsComponent {
-
+  
 }
