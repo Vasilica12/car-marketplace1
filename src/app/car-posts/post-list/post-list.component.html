@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="cars.length > 0">
   <div *ngFor="let car of cars" class="card">
     <mat-card class="example-card small-card" appearance="outlined">
       <mat-card-header>
@@ -6,7 +6,6 @@
         <mat-card-title>{{ car.brand }}</mat-card-title>
         <mat-card-subtitle>{{ car.model }}</mat-card-subtitle>
       </mat-card-header>
-      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
       <mat-card-content>
         <p>{{ car.description }}</p>
       </mat-card-content>
@@ -17,3 +16,4 @@
     </mat-card>
   </div>
 </div>
+<p *ngIf="cars.length <= 0">No cars added yet</p>

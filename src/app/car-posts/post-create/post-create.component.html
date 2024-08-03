@@ -1,24 +1,48 @@
 <h1>Formular de Înregistrare a Mașinii pentru Vânzare</h1>
 
-<form class="example-form">
+<form class="example-form" (submit) = "onAddCar(carForm)" #carForm="ngForm">
   <h4>Selectează marca dorită</h4>
   <mat-form-field class="example-full-width">
     <mat-label>Marca</mat-label>
-    <mat-select [(ngModel)]="selectedCar" name="food">
+    <mat-select [(ngModel)]="selectedCar" name="brand">
       @for (car of cars; track car) {
         <mat-option [value]="car.value">{{car.viewValue}}</mat-option>
       }
     </mat-select>
   </mat-form-field>
-
   <mat-form-field class="example-full-width">
-    <mat-label>Leave a comment</mat-label>
-    <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+    <mat-label>Model</mat-label>
+    <input 
+      matInput 
+      placeholder="Ex. S class" 
+      ngModel
+      required
+      name="model"
+      #model="ngModel">
+    @if (model.invalid) {
+      <mat-error>Modelul de masina introdus nu este valid</mat-error>
+    }
   </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>Descriere</mat-label>
+    <textarea 
+      matInput 
+      ngModel
+      required
+      name="description" 
+      #description="ngModel"
+      placeholder="Ex. Este cea mai smechera masina..."></textarea>
+    @if (description.invalid) {
+      <mat-error>Va rog sa adaugati o descriere la masina</mat-error>
+    }
+  </mat-form-field>
+  <section>
+    <div class="example-button-row">
+      <button 
+        mat-button
+        type="submit"
+        >Salveaza anuntul</button>
+    </div>
+  </section>
 </form>
 
-<section>
-  <div class="example-button-row">
-    <button mat-button>Save Post</button>
-  </div>
-</section>
