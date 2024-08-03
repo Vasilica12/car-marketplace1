@@ -1,11 +1,13 @@
 .container {
-  direction: flex;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 1rem;
 }
 
 .container img {
   height: 100%;
   width: 100%;
-  object-fit: contain;
 }
 
 
