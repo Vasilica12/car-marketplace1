@@ -1,100 +1,95 @@
-/* styles.css or component-specific CSS file */
-
-/* Reset some basic elements to ensure consistency */
 body, h1, h2, h3, h4, h5, h6, p, ul, ol, li {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
   
-  /* Set basic styles for the body */
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    color: #333;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-  }
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
   
-  /* Container for the component */
-  .component-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-  }
-  
-  /* Basic styling for headers */
-  h1, h2, h3 {
-    color: #343a40;
-    margin-bottom: 20px;
-  }
+.component-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  box-sizing: border-box; 
+}
+
+/* Basic styling for headers */
+h1, h2, h3 {
+  color: #343a40;
+  margin-bottom: 20px;
+}
 
   
-  h1 {
-    font-size: 2.5rem;
-  }
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
+/* Basic styling for paragraphs */
+p {
+  margin-bottom: 1.5rem;
+}
+
+
   
-  h2 {
+/* Basic styling for lists */
+ul, ol {
+  margin-bottom: 1.5rem;
+}
+
+ul li, ol li {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+  
+/* Basic button styles */
+button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+  
+button:hover {
+  background-color: #0056b3;
+}
+  
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .component-container {
+    padding: 10px;
+  }
+
+  h1 {
     font-size: 2rem;
   }
-  
-  h3 {
+
+  h2 {
     font-size: 1.75rem;
   }
-  
-  /* Basic styling for paragraphs */
-  p {
-    margin-bottom: 1.5rem;
-  }
 
-
-  
-  /* Basic styling for lists */
-  ul, ol {
-    margin-bottom: 1.5rem;
+  h3 {
+    font-size: 1.5rem;
   }
-  
-  ul li, ol li {
-    margin-left: 20px;
-    margin-bottom: 10px;
-  }
-  
-  /* Basic button styles */
-  button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .component-container {
-      padding: 10px;
-    }
-  
-    h1 {
-      font-size: 2rem;
-    }
-  
-    h2 {
-      font-size: 1.75rem;
-    }
-  
-    h3 {
-      font-size: 1.5rem;
-    }
-  }
-  
+}

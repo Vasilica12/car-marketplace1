@@ -6,8 +6,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { EventEmitter } from '@angular/core';
+import { Car } from '../car.model';
+import { NgForm } from '@angular/forms';
+import { CarService } from '../car.service';
 
-interface Car {
+interface CarDropdown {
   value: string;
   viewValue: string;
 }
@@ -27,11 +31,29 @@ interface Car {
   styleUrl: './post-create.component.css'
 })
 export class PostCreateComponent {
-  selectedCar: string | undefined;
+  selectedCar = '';
+  enteredContent = 'ceva';
+  selectedModel = '';
+  carPost = new EventEmitter();
 
-  cars: Car[] = [
+  constructor(public carService: CarService) {}
+
+  cars: CarDropdown[] = [
     {value: 'volvo', viewValue: 'Volvo'},
     {value: 'saab', viewValue: 'Saab'},
     {value: 'mercedes', viewValue: 'Mercedes'},
   ];
+
+  onAddCar(form: NgForm) {
+    if(form.invalid) {
+      return;
+    }
+    const car : Car = {
+      brand: form.value.brand,
+      model: form.value.model,
+      description: form.value.description
+    }
+    
+    this.carService.addCars(car);
+  }
 }
