@@ -55,5 +55,6 @@ export class PostCreateComponent {
     }
     
     this.carService.addCars(car);
+    form.resetForm();
   }
 }
