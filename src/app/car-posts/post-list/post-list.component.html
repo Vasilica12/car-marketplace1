@@ -1,4 +1,4 @@
-<div class="container" *ngIf="cars.length > 0">
+<div class="container" *ngIf="!isLoading && cars.length > 0">
   <div *ngFor="let car of cars" class="card">
     <mat-card class="example-card small-card" appearance="outlined">
       <mat-card-header>
@@ -11,9 +11,13 @@
       </mat-card-content>
       <mat-card-actions>
         <button mat-button color="primary">Edit</button>
-        <button mat-button color="warn">Delete</button>
+        <button mat-button color="warn" (click)="onDelete(car.id)">Delete</button>
       </mat-card-actions>
     </mat-card>
   </div>
 </div>
-<p *ngIf="cars.length <= 0">No cars added yet</p>
+<p *ngIf="!isLoading && cars.length <= 0">No cars added yet</p>
+<div *ngIf="isLoading">
+  <p>Loading cars...</p>
+  <!-- You could replace this with a spinner or progress bar -->
+</div>
