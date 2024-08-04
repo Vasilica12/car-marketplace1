@@ -15,19 +15,30 @@ import { Subscription } from 'rxjs';
 })
 export class PostListComponent implements OnInit, OnDestroy {
   cars : Car [] = [];
+  isLoading = false;
   private carSub: Subscription = new Subscription;
 
   constructor(public carService: CarService) {}
 
   ngOnInit() {
-    this.cars = this.carService.getCars();
+    this.isLoading = true;
+    this.carService.getCars();
     this.carSub = this.carService.getCarsUpdateListener()
       .subscribe((cars: Car[]) => {
+        this.isLoading = false;
         this.cars = cars;
+        // console.log("this is for the cars:", this.cars);
     });
+    
+  }
+
+  onDelete(carId: string) {
+    this.carService.deleteCars(carId)
   }
 
   ngOnDestroy() {
-    this.carSub.unsubscribe();
+    if (this.carSub) {
+      this.carSub.unsubscribe();
+    }
   }
 }

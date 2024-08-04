@@ -48,13 +48,8 @@ export class PostCreateComponent {
     if(form.invalid) {
       return;
     }
-    const car : Car = {
-      brand: form.value.brand,
-      model: form.value.model,
-      description: form.value.description
-    }
     
-    this.carService.addCars(car);
+    this.carService.addCars(form.value.brand, form.value.model, form.value.description);
     form.resetForm();
   }
 }
