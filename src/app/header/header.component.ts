@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,8 @@ import { MatSelectModule } from '@angular/material/select';
   imports: [
     MatToolbarModule, 
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    RouterModule
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'

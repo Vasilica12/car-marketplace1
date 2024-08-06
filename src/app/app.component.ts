@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from './footer/footer.component';
 import { PostCreateComponent } from './car-posts/post-create/post-create.component';
 import { PostListComponent } from './car-posts/post-list/post-list.component';
+
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ import { PostListComponent } from './car-posts/post-list/post-list.component';
     RouterOutlet,
     HeaderComponent, 
     CommonModule, 
+    RouterModule,
     FooterComponent, 
     PostCreateComponent, 
     PostListComponent],
