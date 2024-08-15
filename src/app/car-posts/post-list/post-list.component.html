@@ -1,3 +1,4 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
 <div class="container" *ngIf="!isLoading && cars.length > 0">
   <div *ngFor="let car of cars" class="card">
     <mat-card class="example-card small-card" appearance="outlined">
@@ -17,7 +18,3 @@
   </div>
 </div>
 <p *ngIf="!isLoading && cars.length <= 0">No cars added yet</p>
-<div *ngIf="isLoading">
-  <p>Loading cars...</p>
-  <!-- You could replace this with a spinner or progress bar -->
-</div>

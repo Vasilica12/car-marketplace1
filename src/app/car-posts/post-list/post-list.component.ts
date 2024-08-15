@@ -6,11 +6,12 @@ import { Car } from '../car.model';
 import { CarService } from '../car.service'; 
 import { Subscription } from 'rxjs';
 import { RouterModule } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-post-list',
   standalone: true,
-  imports: [MatButtonModule, MatCardModule, CommonModule, RouterModule],
+  imports: [MatButtonModule, MatCardModule, CommonModule, RouterModule, MatProgressSpinnerModule],
   templateUrl: './post-list.component.html',
   styleUrl: './post-list.component.css'
 })
@@ -28,7 +29,6 @@ export class PostListComponent implements OnInit, OnDestroy {
       .subscribe((cars: Car[]) => {
         this.isLoading = false;
         this.cars = cars;
-        // console.log("this is for the cars:", this.cars);
     });
     
   }

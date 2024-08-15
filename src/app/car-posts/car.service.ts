@@ -3,6 +3,7 @@ import { Car } from "./car.model";
 import { Subject } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { map } from "rxjs";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class CarService {
   private cars: Car[] = [];
   private carsUpdated = new Subject<Car[]>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getCars() {
     // return [...this.cars]; // a copy for the object
@@ -49,6 +50,7 @@ export class CarService {
         car.id = id;
         this.cars.push(car);
         this.carsUpdated.next([...this.cars]);
+        this.router.navigate(["/"]);
       });
   }
 
@@ -62,6 +64,7 @@ export class CarService {
         updatedCars[oldCarIndex] = car;
         this.cars = updatedCars;
         this.carsUpdated.next([...this.cars]);
+        this.router.navigate(["/"]);
       });
   }
 

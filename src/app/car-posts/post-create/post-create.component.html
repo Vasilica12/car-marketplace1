@@ -1,6 +1,6 @@
 <h1>Formular de Înregistrare a Mașinii pentru Vânzare</h1>
-
-<form class="example-form" (submit) = "onSaveCar(carForm)" #carForm="ngForm">
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<form *ngIf="!isLoading" class="example-form" (submit) = "onSaveCar(carForm)" #carForm="ngForm">
   <h4>Selectează marca dorită</h4>
   <mat-form-field class="example-full-width">
     <mat-label>Marca</mat-label>

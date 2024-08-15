@@ -11,6 +11,8 @@ import { Car } from '../car.model';
 import { NgForm } from '@angular/forms';
 import { CarService } from '../car.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CommonModule } from '@angular/common';
 
 interface CarDropdown {
   value: string;
@@ -27,6 +29,8 @@ interface CarDropdown {
     MatIconModule, 
     MatDividerModule, 
     MatButtonModule,
+    MatProgressSpinnerModule,
+    CommonModule,
     MatSelectModule],
   templateUrl: './post-create.component.html',
   styleUrl: './post-create.component.css'
@@ -38,6 +42,7 @@ export class PostCreateComponent implements OnInit{
   private mode = 0;
   carId: any = '';
   car!: any;
+  isLoading = false;
 
   carPost = new EventEmitter();
 
@@ -48,9 +53,11 @@ export class PostCreateComponent implements OnInit{
       if(paramMap.has('carId')) {
         this.mode = 1;
         this.carId = paramMap.get('carId');
+        this.isLoading = true;
         this.car = this.carService.getCar(this.carId)
           .subscribe(carData => {
             this.car = {id: carData._id, brand: carData.brand, model: carData.model, description: carData.description}
+            this.isLoading = false;
           });
       } else {
         this.mode = 0;
@@ -70,6 +77,7 @@ export class PostCreateComponent implements OnInit{
       return;
     }
 
+    this.isLoading = true;
     if(this.mode === 0) {
       this.carService.addCars(form.value.brand, form.value.model, form.value.description);
     } else {
