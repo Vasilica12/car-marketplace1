@@ -14,4 +14,13 @@ mat-spinner {
   margin: auto;
 }
 
+.car-image {
+  width: 15rem;
+  height: 15rem;
+}
+
+.car-image img {
+  width: 100%;
+}
+
 

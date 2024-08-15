@@ -22,9 +22,9 @@ export class CarService {
         return carData.cars.map((car: any) => {
           return {
             id: car._id,
-            brand: car.brand,
             model: car.model,
-            description: car.description
+            description: car.description,
+            imagePath: car.imagePath
           }
         })
       }))
@@ -39,28 +39,55 @@ export class CarService {
   }
 
   getCar(id: string) {
-    return this.http.get<{_id: string, brand: string, model: string, description: string}>("http://localhost:3000/api/cars/" + id);
+    return this.http.get<{_id: string, model: string, description: string, imagePath: string}>("http://localhost:3000/api/cars/" + id);
   }
 
-  addCars(brand: string, model: string, description: string) {
-    const car: Car = {id: '', brand: brand, model: model, description: description};
-    this.http.post<{message: string, carId: string}>("http://localhost:3000/api/cars", car)
+  addCars(model: string, description: string, image: File) {
+    const carData = new FormData();
+    carData.append('model', model);
+    carData.append('description', description);
+    carData.append('image', image, model);
+    this.http.post<{message: string, car: Car}>("http://localhost:3000/api/cars", carData)
       .subscribe((responseData) => {
-        const id = responseData.carId;
-        car.id = id;
+        const car: Car = {
+          id: responseData.car.id, 
+          model: model, 
+          description: description,
+          imagePath: responseData.car.imagePath
+        };
         this.cars.push(car);
         this.carsUpdated.next([...this.cars]);
         this.router.navigate(["/"]);
       });
   }
 
-  updateCar(id: string, brand: string, model: string, description: string) {
-    const car: Car = {id: id, brand: brand, model: model, description: description};
+  updateCar(id: string, model: string, description: string, image: File | string) {
+    let carData: Car | FormData;
+    if(typeof(image) === 'object') {
+      carData = new FormData();
+      carData.append('id', id);
+      carData.append('model', model);
+      carData.append('description', description);
+      carData.append('image', image, model);
+    } else {
+      carData = {
+        id: id,
+        model: model,
+        description: description,
+        imagePath: image
+      };
+    }
 
-    this.http.put("http://localhost:3000/api/cars/" + id, car)
+    this.http.put("http://localhost:3000/api/cars/" + id, carData)
       .subscribe(response => {
         const updatedCars = [...this.cars];
-        const oldCarIndex = updatedCars.findIndex(c => c.id === car.id);
+        const oldCarIndex = updatedCars.findIndex(c => c.id === id);
+        const car: Car = {
+          id: id,
+          model: model,
+          description: description,
+          imagePath: ''
+        }
         updatedCars[oldCarIndex] = car;
         this.cars = updatedCars;
         this.carsUpdated.next([...this.cars]);

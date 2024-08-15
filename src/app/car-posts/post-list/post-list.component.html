@@ -4,9 +4,11 @@
     <mat-card class="example-card small-card" appearance="outlined">
       <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>{{ car.brand }}</mat-card-title>
         <mat-card-subtitle>{{ car.model }}</mat-card-subtitle>
       </mat-card-header>
+      <div class="car-image">
+        <img [src]="car.imagePath" [alt]="car.model">
+      </div>
       <mat-card-content>
         <p>{{ car.description }}</p>
       </mat-card-content>

@@ -1,41 +1,41 @@
 <h1>Formular de Înregistrare a Mașinii pentru Vânzare</h1>
 <mat-spinner *ngIf="isLoading"></mat-spinner>
-<form *ngIf="!isLoading" class="example-form" (submit) = "onSaveCar(carForm)" #carForm="ngForm">
-  <h4>Selectează marca dorită</h4>
-  <mat-form-field class="example-full-width">
+<form [formGroup]="form" *ngIf="!isLoading" class="example-form" (submit) = "onSaveCar()">
+  <!-- <h4>Selectează marca dorită</h4> -->
+  <!-- <mat-form-field class="example-full-width">
     <mat-label>Marca</mat-label>
     <mat-select [(ngModel)]="selectedCar" name="brand">
       @for (car of cars; track car) {
         <mat-option [value]="car.value">{{car.viewValue}}</mat-option>
       }
     </mat-select>
-  </mat-form-field>
+  </mat-form-field> -->
+  <div class="add-image">
+    <button mat-stroke-button type="button" (click)="filePicker.click()">Adauga imagine</button>
+    <input type="file" #filePicker (change)="onImagePicked($event)">
+  </div>
+  <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && form.get('image')?.valid">
+    <img [src]="imagePreview" [alt]="form.value.model">
+  </div>
   <mat-form-field class="example-full-width">
     <mat-label>Model</mat-label>
     <input 
       matInput 
       placeholder="Ex. S class" 
-      [ngModel] = 'car?.model'
-      required
-      name="model"
-      #model="ngModel">
-    @if (model.invalid) {
-      <mat-error>Modelul de masina introdus nu este valid</mat-error>
-    }
+      formControlName="model"
+      name="model">
+    <mat-error *ngIf="form.get('model')?.invalid">Modelul de masina introdus nu este valid</mat-error>
   </mat-form-field>
   <mat-form-field class="example-full-width">
     <mat-label>Descriere</mat-label>
     <textarea 
       matInput 
-      [ngModel]="car?.description"
-      required
       name="description" 
-      #description="ngModel"
+      formControlName="description"
       placeholder="Ex. Este cea mai smechera masina..."></textarea>
-    @if (description.invalid) {
-      <mat-error>Va rog sa adaugati o descriere la masina</mat-error>
-    }
+    <mat-error *ngIf="form.get('description')?.invalid">Va rog sa adaugati o descriere la masina</mat-error>
   </mat-form-field>
+  
   <section>
     <div class="example-button-row">
       <button 
