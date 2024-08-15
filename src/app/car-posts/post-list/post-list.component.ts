@@ -5,11 +5,12 @@ import { CommonModule } from '@angular/common';
 import { Car } from '../car.model';
 import { CarService } from '../car.service'; 
 import { Subscription } from 'rxjs';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-post-list',
   standalone: true,
-  imports: [MatButtonModule, MatCardModule, CommonModule],
+  imports: [MatButtonModule, MatCardModule, CommonModule, RouterModule],
   templateUrl: './post-list.component.html',
   styleUrl: './post-list.component.css'
 })

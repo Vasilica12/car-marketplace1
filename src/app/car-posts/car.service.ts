@@ -37,6 +37,10 @@ export class CarService {
     return this.carsUpdated.asObservable();
   }
 
+  getCar(id: string) {
+    return this.http.get<{_id: string, brand: string, model: string, description: string}>("http://localhost:3000/api/cars/" + id);
+  }
+
   addCars(brand: string, model: string, description: string) {
     const car: Car = {id: '', brand: brand, model: model, description: description};
     this.http.post<{message: string, carId: string}>("http://localhost:3000/api/cars", car)
@@ -44,6 +48,19 @@ export class CarService {
         const id = responseData.carId;
         car.id = id;
         this.cars.push(car);
+        this.carsUpdated.next([...this.cars]);
+      });
+  }
+
+  updateCar(id: string, brand: string, model: string, description: string) {
+    const car: Car = {id: id, brand: brand, model: model, description: description};
+
+    this.http.put("http://localhost:3000/api/cars/" + id, car)
+      .subscribe(response => {
+        const updatedCars = [...this.cars];
+        const oldCarIndex = updatedCars.findIndex(c => c.id === car.id);
+        updatedCars[oldCarIndex] = car;
+        this.cars = updatedCars;
         this.carsUpdated.next([...this.cars]);
       });
   }

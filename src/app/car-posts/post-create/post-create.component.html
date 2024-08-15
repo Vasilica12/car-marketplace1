@@ -1,6 +1,6 @@
 <h1>Formular de Înregistrare a Mașinii pentru Vânzare</h1>
 
-<form class="example-form" (submit) = "onAddCar(carForm)" #carForm="ngForm">
+<form class="example-form" (submit) = "onSaveCar(carForm)" #carForm="ngForm">
   <h4>Selectează marca dorită</h4>
   <mat-form-field class="example-full-width">
     <mat-label>Marca</mat-label>
@@ -15,7 +15,7 @@
     <input 
       matInput 
       placeholder="Ex. S class" 
-      ngModel
+      [ngModel] = 'car?.model'
       required
       name="model"
       #model="ngModel">
@@ -27,7 +27,7 @@
     <mat-label>Descriere</mat-label>
     <textarea 
       matInput 
-      ngModel
+      [ngModel]="car?.description"
       required
       name="description" 
       #description="ngModel"
