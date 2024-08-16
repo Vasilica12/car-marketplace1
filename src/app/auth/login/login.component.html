@@ -1,0 +1,34 @@
+<div class="center">
+<h1>Login</h1>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<form *ngIf="!isLoading" class="example-form" >
+  <mat-form-field class="example-full-width">
+    <mat-label>Email</mat-label>
+    <input 
+      matInput 
+      type="email"
+      placeholder="test@test.com" 
+      name="email">
+    <mat-error>Va rog sa introduceti un email valid</mat-error>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>Parola</mat-label>
+    <input 
+      matInput 
+      type="password"
+      placeholder="Password"
+      name="password">
+    <mat-error>Va rog sa introduceti o parola valida</mat-error>
+  </mat-form-field>
+  
+  <section>
+    <div class="example-button-row">
+      <button 
+        mat-button
+        type="submit"
+        >Login</button>
+    </div>
+  </section>
+</form>
+</div>
+
