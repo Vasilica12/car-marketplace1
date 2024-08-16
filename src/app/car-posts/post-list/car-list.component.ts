@@ -8,6 +8,7 @@ import { CarService } from '../car.service';
 import { Subscription } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-car-list',
@@ -25,6 +26,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 })
 export class CarListComponent implements OnInit, OnDestroy {
   cars : Car [] = [];
+  private authListenerSubs!: Subscription;
+  userAuth = false;
   isLoading = false;
   totalCars = 0;
   carsPerPage = 2;
@@ -32,10 +35,14 @@ export class CarListComponent implements OnInit, OnDestroy {
   pageSizeOptions = [1, 2, 5, 10];
   private carSub: Subscription = new Subscription;
 
-  constructor(public carService: CarService) {}
+  constructor(public carService: CarService, private authService: AuthService) {}
 
   ngOnInit() {
     this.isLoading = true;
+    this.userAuth = this.authService.getIsAuth();
+    this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuth => {
+      this.userAuth = isAuth;
+    });
     this.carService.getCars(this.carsPerPage, this.currentPage);
     this.carSub = this.carService.getCarsUpdateListener()
       .subscribe((carsData: {cars: Car[], carsCount: number}) => {
@@ -43,7 +50,6 @@ export class CarListComponent implements OnInit, OnDestroy {
         this.totalCars = carsData.carsCount;
         this.cars = carsData.cars;
     });
-    
   }
 
   onChangePage(pageData: PageEvent) {
@@ -61,6 +67,7 @@ export class CarListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.authListenerSubs.unsubscribe();
     if (this.carSub) {
       this.carSub.unsubscribe();
     }

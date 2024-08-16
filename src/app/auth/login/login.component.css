@@ -22,3 +22,7 @@ h1 {
 .example-button-row button {
   margin: auto;
 }
+
+mat-spinner {
+  margin: auto;
+}

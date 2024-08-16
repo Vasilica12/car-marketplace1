@@ -3,8 +3,9 @@
     <a routerLink="/">Anunturi</a>
   </div>
   <div class="header-right">
-    <button mat-button routerLink="/create" routerLinkActive="mat-accent">Adauga anunt</button>
-    <button mat-button routerLink="/login" routerLinkActive="mat-accent">Logare</button>
-    <button mat-button routerLink="/signup" routerLinkActive="mat-accent">Inregistrare</button>
+    <button *ngIf="userAuth" mat-button routerLink="/create" routerLinkActive="mat-accent">Adauga anunt</button>
+    <button *ngIf="!userAuth" mat-button routerLink="/login" routerLinkActive="mat-accent">Logare</button>
+    <button *ngIf="!userAuth" mat-button routerLink="/signup" routerLinkActive="mat-accent">Inregistrare</button>
+    <button *ngIf="userAuth" mat-button (click)="onLogout()">Iesi din cont</button>
   </div>
 </mat-toolbar>
