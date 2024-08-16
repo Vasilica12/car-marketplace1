@@ -19,4 +19,11 @@
     </mat-card>
   </div>
 </div>
+<mat-paginator 
+  [length]="totalCars" 
+  [pageSize]="carsPerPage"
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="onChangePage($event)"
+  *ngIf="cars.length > 0"
+></mat-paginator>
 <p *ngIf="!isLoading && cars.length <= 0">No cars added yet</p>

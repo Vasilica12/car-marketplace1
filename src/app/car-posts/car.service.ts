@@ -11,26 +11,27 @@ import { Router } from "@angular/router";
 
 export class CarService {
   private cars: Car[] = [];
-  private carsUpdated = new Subject<Car[]>();
+  private carsUpdated = new Subject<{ cars: Car[], carsCount: number}>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getCars() {
+  getCars(carsPerPage: number, currentPage: number) {
     // return [...this.cars]; // a copy for the object
-    this.http.get<{message: string, cars: any}>('http://localhost:3000/api/cars')
+    const queryParams = `?pagesize=${carsPerPage}&page=${currentPage}`;
+    this.http.get<{message: string, cars: any, maxCars: number}>('http://localhost:3000/api/cars' + queryParams)
       .pipe(map((carData) => {
-        return carData.cars.map((car: any) => {
+        return { cars: carData.cars.map((car: any) => {
           return {
             id: car._id,
             model: car.model,
             description: car.description,
             imagePath: car.imagePath
           }
-        })
+        }), maxCars: carData.maxCars}
       }))
-      .subscribe(cars => {
-        this.cars = cars;
-        this.carsUpdated.next([...this.cars]);
+      .subscribe(transfCarsData => {
+        this.cars = transfCarsData.cars;
+        this.carsUpdated.next({cars: [...this.cars], carsCount: transfCarsData.maxCars});
       });
   }
 
@@ -49,14 +50,6 @@ export class CarService {
     carData.append('image', image, model);
     this.http.post<{message: string, car: Car}>("http://localhost:3000/api/cars", carData)
       .subscribe((responseData) => {
-        const car: Car = {
-          id: responseData.car.id, 
-          model: model, 
-          description: description,
-          imagePath: responseData.car.imagePath
-        };
-        this.cars.push(car);
-        this.carsUpdated.next([...this.cars]);
         this.router.navigate(["/"]);
       });
   }
@@ -80,27 +73,11 @@ export class CarService {
 
     this.http.put("http://localhost:3000/api/cars/" + id, carData)
       .subscribe(response => {
-        const updatedCars = [...this.cars];
-        const oldCarIndex = updatedCars.findIndex(c => c.id === id);
-        const car: Car = {
-          id: id,
-          model: model,
-          description: description,
-          imagePath: ''
-        }
-        updatedCars[oldCarIndex] = car;
-        this.cars = updatedCars;
-        this.carsUpdated.next([...this.cars]);
         this.router.navigate(["/"]);
       });
   }
 
   deleteCars(carId: string) {
-    this.http.delete("http://localhost:3000/api/cars/" + carId)
-      .subscribe(() => {
-        const updatedCars = this.cars.filter(car => car.id !== carId);
-        this.cars = updatedCars;
-        this.carsUpdated.next([...this.cars]);
-      })
+    return this.http.delete("http://localhost:3000/api/cars/" + carId);
   }
 }
