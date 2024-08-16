@@ -6,7 +6,7 @@ import { FooterComponent } from './footer/footer.component';
 import { CarCreateComponent } from './car-posts/post-create/car-create.component';
 import { CarListComponent } from './car-posts/post-list/car-list.component';
 import { LoginComponent } from './auth/login/login.component';
-
+import { SignupComponent } from './auth/signup/signup.component';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +19,7 @@ import { LoginComponent } from './auth/login/login.component';
     RouterModule,
     FooterComponent, 
     CarCreateComponent, 
+    SignupComponent,
     CarListComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

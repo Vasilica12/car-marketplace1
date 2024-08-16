@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
@@ -22,4 +22,8 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class LoginComponent {
   isLoading = false;
+
+  onLogin(form: NgForm) {
+    console.log(form);
+  }
 }
