@@ -3,8 +3,8 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from './footer/footer.component';
-import { PostCreateComponent } from './car-posts/post-create/post-create.component';
-import { PostListComponent } from './car-posts/post-list/post-list.component';
+import { CarCreateComponent } from './car-posts/post-create/car-create.component';
+import { CarListComponent } from './car-posts/post-list/car-list.component';
 
 
 @Component({
@@ -16,8 +16,8 @@ import { PostListComponent } from './car-posts/post-list/post-list.component';
     CommonModule, 
     RouterModule,
     FooterComponent, 
-    PostCreateComponent, 
-    PostListComponent],
+    CarCreateComponent, 
+    CarListComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

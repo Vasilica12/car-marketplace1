@@ -31,10 +31,10 @@ import { validateImage } from './validate-image-type.validator';
     MatProgressSpinnerModule,
     CommonModule,
     MatSelectModule],
-  templateUrl: './post-create.component.html',
-  styleUrl: './post-create.component.css'
+  templateUrl: './car-create.component.html',
+  styleUrl: './car-create.component.css'
 })
-export class PostCreateComponent implements OnInit{
+export class CarCreateComponent implements OnInit{
   selectedCar = '';
   enteredContent = 'ceva';
   selectedModel = '';

@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
-  selector: 'app-post-list',
+  selector: 'app-car-list',
   standalone: true,
   imports: [
     MatButtonModule, 
@@ -20,10 +20,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatProgressSpinnerModule,
     MatPaginatorModule
   ],
-  templateUrl: './post-list.component.html',
-  styleUrl: './post-list.component.css'
+  templateUrl: './car-list.component.html',
+  styleUrl: './car-list.component.css'
 })
-export class PostListComponent implements OnInit, OnDestroy {
+export class CarListComponent implements OnInit, OnDestroy {
   cars : Car [] = [];
   isLoading = false;
   totalCars = 0;

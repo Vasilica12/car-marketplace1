@@ -1,12 +1,12 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { PostListComponent } from "./car-posts/post-list/post-list.component";
-import { PostCreateComponent } from "./car-posts/post-create/post-create.component";
+import { CarListComponent } from "./car-posts/post-list/car-list.component";
+import { CarCreateComponent } from "./car-posts/post-create/car-create.component";
 
 export const routes: Routes = [
-  { path: '', component: PostListComponent },
-  { path: 'create', component: PostCreateComponent },
-  { path: 'edit/:carId', component: PostCreateComponent}
+  { path: '', component: CarListComponent },
+  { path: 'create', component: CarCreateComponent },
+  { path: 'edit/:carId', component: CarCreateComponent}
 ]
 
 @NgModule({
