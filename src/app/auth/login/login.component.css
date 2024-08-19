@@ -1,0 +1,28 @@
+.example-form {
+
+  width: 100%;
+}
+
+h1 { 
+  margin: auto;
+  width: 20%;
+  padding: 1.5rem;
+}
+
+.center {
+  margin: auto;
+  width: 40%;
+  padding: 10px;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.example-button-row button {
+  margin: auto;
+}
+
+mat-spinner {
+  margin: auto;
+}
