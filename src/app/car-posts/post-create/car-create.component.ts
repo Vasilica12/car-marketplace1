@@ -67,7 +67,8 @@ export class CarCreateComponent implements OnInit{
               id: carData._id, 
               model: carData.model, 
               description: carData.description,
-              imagePath: carData.imagePath
+              imagePath: carData.imagePath,
+              creator: carData.creator
             }
             this.isLoading = false;
             this.form.setValue({

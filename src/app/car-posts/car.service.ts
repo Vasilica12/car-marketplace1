@@ -25,7 +25,8 @@ export class CarService {
             id: car._id,
             model: car.model,
             description: car.description,
-            imagePath: car.imagePath
+            imagePath: car.imagePath,
+            creator: car.creator
           }
         }), maxCars: carData.maxCars}
       }))
@@ -40,7 +41,7 @@ export class CarService {
   }
 
   getCar(id: string) {
-    return this.http.get<{_id: string, model: string, description: string, imagePath: string}>("http://localhost:3000/api/cars/" + id);
+    return this.http.get<{_id: string, model: string, description: string, imagePath: string, creator: string}>("http://localhost:3000/api/cars/" + id);
   }
 
   addCars(model: string, description: string, image: File) {
@@ -67,7 +68,8 @@ export class CarService {
         id: id,
         model: model,
         description: description,
-        imagePath: image
+        imagePath: image,
+        creator: ''
       };
     }
 
