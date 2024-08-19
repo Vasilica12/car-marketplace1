@@ -32,6 +32,7 @@ export class CarListComponent implements OnInit, OnDestroy {
   totalCars = 0;
   carsPerPage = 2;
   currentPage = 1;  
+  userId!: string;
   pageSizeOptions = [1, 2, 5, 10];
   private carSub: Subscription = new Subscription;
 
@@ -39,9 +40,11 @@ export class CarListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoading = true;
+    this.userId = this.authService.getUserId();
     this.userAuth = this.authService.getIsAuth();
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuth => {
       this.userAuth = isAuth;
+      this.userId = this.authService.getUserId();
     });
     this.carService.getCars(this.carsPerPage, this.currentPage);
     this.carSub = this.carService.getCarsUpdateListener()
