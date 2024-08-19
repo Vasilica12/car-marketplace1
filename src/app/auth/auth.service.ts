@@ -10,13 +10,13 @@ import { Router } from "@angular/router";
 
 export class AuthService{
   private isAuth = false;
-  private token!: string | null;
+  private token!: any;
+  private tokenTimer!: any;
   private authStatusListener = new Subject<boolean>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
   getToken = () => {
-    console.log("token from service" + this.token)
     return this.token;
   }
 
@@ -38,23 +38,81 @@ export class AuthService{
 
   login(email: string, password: string) {
     const authData: AuthData = {email: email, password: password};
-    this.http.post<{ token: string }>("http://localhost:3000/api/user/login", authData)
+    this.http.post<{ token: string, expiresIn: number }>("http://localhost:3000/api/user/login", authData)
       .subscribe(responseData => {
-        console.log(responseData);
         const token = responseData.token;
         this.token = token;
         if (token) {
+          const expires = responseData.expiresIn;
+          this.setAuthTimer(expires);
           this.isAuth = true;
           this.authStatusListener.next(true);
+          const now = new Date();
+          const expirationDate = new Date(now.getTime() + expires * 1000);
+          this.saveAuthData(token, expirationDate);
           this.router.navigate(['/']);
         }
       });
+  }
+
+  autoAuthUser() {
+    const authInformation = this.getAuthData();
+    if(!authInformation) {
+      return;
+    }
+    const now = new Date();
+    const expiresIn = authInformation!.expirationDate.getTime() - now.getTime();
+    if(expiresIn > 0) {
+      this.token = authInformation?.token;
+      console.log("token in autoAuthUser " + this.token);
+      this.isAuth = true;
+      this.setAuthTimer(expiresIn / 1000);
+      this.authStatusListener.next(true);
+    }
   }
 
   logout() {
     this.token = null;
     this.isAuth = false;
     this.authStatusListener.next(false);
+    this.clearAuthData();
     this.router.navigate(['/']);
+    clearTimeout(this.tokenTimer);
+  }
+
+  private setAuthTimer(duration: number) {
+    this.tokenTimer = setTimeout(() => {
+      this.logout();
+    }, duration * 1000);
+  }
+
+  private saveAuthData(token: string, expirationDate: Date) {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('token', token);
+      localStorage.setItem('expiration', expirationDate.toISOString());
+    }
+  }
+
+  private clearAuthData() {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('token');
+      localStorage.removeItem('expiration');
+    }
+  }
+
+  private getAuthData() {
+    if (typeof window === 'undefined') {
+      return null;
+    }
+
+    const token = localStorage.getItem('token');
+    const expirationDate = localStorage.getItem('expiration');
+    if(!token || !expirationDate) {
+      return;
+    }
+    return {
+      token: token,
+      expirationDate: new Date(expirationDate)
+    }
   }
 }

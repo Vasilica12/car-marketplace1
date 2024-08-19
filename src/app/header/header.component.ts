@@ -23,6 +23,7 @@ import { CommonModule } from '@angular/common';
 export class HeaderComponent implements OnInit, OnDestroy{
   private authListenerSubs!: Subscription;
   userAuth = false;
+  token!: string;
 
   constructor(private authService: AuthService) {}
 
@@ -31,9 +32,13 @@ export class HeaderComponent implements OnInit, OnDestroy{
   }
  
   ngOnInit() {
+    this.userAuth = true;
+    // this.userAuth = this.authService.getIsAuth();
+    // console.log("user auth after refresh 1 " + this.userAuth);
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuth => {
       this.userAuth = isAuth;
     });
+
   }
 
   ngOnDestroy() {
