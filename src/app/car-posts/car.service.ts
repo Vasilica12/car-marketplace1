@@ -25,6 +25,8 @@ export class CarService {
             id: car._id,
             model: car.model,
             description: car.description,
+            price: car.price,
+            telephone: car.telephone,
             imagePath: car.imagePath,
             creator: car.creator
           }
@@ -41,33 +43,40 @@ export class CarService {
   }
 
   getCar(id: string) {
-    return this.http.get<{_id: string, model: string, description: string, imagePath: string, creator: string}>("http://localhost:3000/api/cars/" + id);
+    return this.http.get<{_id: string, model: string, description: string, price: string, telephone: string, imagePath: string, creator: string}>("http://localhost:3000/api/cars/" + id);
   }
 
-  addCars(model: string, description: string, image: File) {
+  addCars(model: string, description: string, price: string, telephone: string, image: File) {
     const carData = new FormData();
     carData.append('model', model);
     carData.append('description', description);
+    carData.append('price', price);
+    carData.append('telephone', telephone);
     carData.append('image', image, model);
     this.http.post<{message: string, car: Car}>("http://localhost:3000/api/cars", carData)
       .subscribe((responseData) => {
         this.router.navigate(["/"]);
+        console.log(responseData);
       });
   }
 
-  updateCar(id: string, model: string, description: string, image: File | string) {
+  updateCar(id: string, model: string, description: string, price: string, telephone: string, image: File | string) {
     let carData: Car | FormData;
     if(typeof(image) === 'object') {
       carData = new FormData();
       carData.append('id', id);
       carData.append('model', model);
       carData.append('description', description);
+      carData.append('price', price);
+      carData.append('telephone', telephone);
       carData.append('image', image, model);
     } else {
       carData = {
         id: id,
         model: model,
         description: description,
+        price: price,
+        telephone: telephone,
         imagePath: image,
         creator: ''
       };

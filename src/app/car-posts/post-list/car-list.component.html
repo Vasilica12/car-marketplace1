@@ -12,6 +12,12 @@
       <mat-card-content>
         <p>{{ car.description }}</p>
       </mat-card-content>
+      <mat-card-content>
+        <p>{{ car.price }}</p>
+      </mat-card-content>
+      <mat-card-content>
+        <p>{{ car.telephone }}</p>
+      </mat-card-content>
       <mat-card-actions>
         <a *ngIf="userAuth && userId === car.creator" mat-button color="primary" [routerLink]="['/edit', car.id]">Edit</a>
         <button mat-button *ngIf="userAuth && userId === car.creator" color="warn" (click)="onDelete(car.id)">Delete</button>
