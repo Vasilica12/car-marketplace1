@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { AuthData } from "./auth-data.model";
 import { Observable, Subject } from "rxjs";
 import { Router } from "@angular/router";
+import { error } from "console";
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,7 @@ export class AuthService{
   private isAuth = false;
   private token!: any;
   private userId!: any;
+  private errorMessage!: any;
   private tokenTimer!: any;
   private authStatusListener = new Subject<boolean>();
 
@@ -19,6 +21,10 @@ export class AuthService{
 
   getToken = () => {
     return this.token;
+  }
+
+  getError() {
+    return this.errorMessage;
   }
 
   getUserId() {
@@ -35,10 +41,12 @@ export class AuthService{
 
   createUser(email: string, password: string) {
     const authData: AuthData = {email: email, password: password};
-    this.http.post<{message: string, result: string}>("http://localhost:3000/api/user/signup", authData)
+    return this.http.post<{message: string, result: string}>("http://localhost:3000/api/user/signup", authData)
       .subscribe(responseData => {
-        console.log(responseData);
-      })
+        this.router.navigate(['/']);
+      }, error => {
+        this.authStatusListener.next(false);
+      });
   }
 
   login(email: string, password: string) {
@@ -58,6 +66,10 @@ export class AuthService{
           this.saveAuthData(token, expirationDate, this.userId);
           this.router.navigate(['/']);
         }
+      }, error => {
+        this.errorMessage = error.error.message;
+        console.log(this.errorMessage);
+        this.authStatusListener.next(false);
       });
   }
 

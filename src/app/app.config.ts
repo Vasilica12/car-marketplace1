@@ -8,6 +8,7 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptors } fro
 
 import { authInterceptor } from './auth/auth-interceptor';
 import { AuthGuard } from './auth/auth.guard';
+import { errorInterceptor } from './error-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,7 +16,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes), 
     provideClientHydration(), 
     provideAnimationsAsync(), 
-    provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
+    provideHttpClient(withFetch(), withInterceptors([authInterceptor, errorInterceptor])),
     AuthGuard
     // { provide: HTTP_INTERCEPTORS, useClass: authInterceptor, multi: true}
   ]
