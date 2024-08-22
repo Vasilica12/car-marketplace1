@@ -8,6 +8,7 @@ import { CarListComponent } from './car-posts/post-list/car-list.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthService } from './auth/auth.service';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,7 @@ import { AuthService } from './auth/auth.service';
     FooterComponent, 
     CarCreateComponent, 
     SignupComponent,
+    MatDialogModule,
     CarListComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
