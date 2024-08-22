@@ -53,6 +53,8 @@ export class CarCreateComponent implements OnInit{
     this.form = new FormGroup({
       'model': new FormControl(null, {validators: [Validators.required]}),
       'description': new FormControl(null, {validators: [Validators.required]}),
+      'price': new FormControl(null, {validators: [Validators.required]}),
+      'telephone': new FormControl(null, {validators: [Validators.required]}),
       'image': new FormControl(undefined, {validators: [Validators.required], asyncValidators: [validateImage]})
     });
 
@@ -67,6 +69,8 @@ export class CarCreateComponent implements OnInit{
               id: carData._id, 
               model: carData.model, 
               description: carData.description,
+              price: carData.price,
+              telephone: carData.telephone,
               imagePath: carData.imagePath,
               creator: carData.creator
             }
@@ -74,6 +78,8 @@ export class CarCreateComponent implements OnInit{
             this.form.setValue({
               'model': this.car.model, 
               'description': this.car.description,
+              'price': this.car.price,
+              'telephone': this.car.telephone,
               'image': this.car.imagePath
             });
           });
@@ -102,12 +108,6 @@ export class CarCreateComponent implements OnInit{
     }
   }
 
-  // cars: CarDropdown[] = [
-  //   {value: 'volvo', viewValue: 'Volvo'},
-  //   {value: 'saab', viewValue: 'Saab'},
-  //   {value: 'mercedes', viewValue: 'Mercedes'},
-  // ];
-
   onSaveCar() {
     if(this.form.invalid) {
       return;
@@ -115,12 +115,19 @@ export class CarCreateComponent implements OnInit{
 
     this.isLoading = true;
     if(this.mode === 0) {
-      this.carService.addCars(this.form.value.model, this.form.value.description, this.form.value.image);
+      this.carService.addCars(
+        this.form.value.model, 
+        this.form.value.description, 
+        this.form.value.price,
+        this.form.value.telephone,
+        this.form.value.image);
     } else {
       this.carService.updateCar(
         this.carId, 
         this.form.value.model, 
         this.form.value.description,
+        this.form.value.price,
+        this.form.value.telephone,
         this.form.value.image
       );
     }
