@@ -39,7 +39,7 @@ export class CarCreateComponent implements OnInit{
   enteredContent = 'ceva';
   selectedModel = '';
   form!: FormGroup;
-  private mode = 0;
+  mode = 0;
   carId: any = '';
   car!: any;
   isLoading = false;

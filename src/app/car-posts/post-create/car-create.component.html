@@ -1,4 +1,5 @@
-<h1>Formular de Înregistrare a Mașinii pentru Vânzare</h1>
+<h1 *ngIf="mode === 0">Formular de înregistrare a mașinii pentru vânzare</h1>
+<h1 *ngIf="mode === 1">Formular de editare a mașinii pentru vânzare</h1>
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <form [formGroup]="form" *ngIf="!isLoading" class="example-form" (submit) = "onSaveCar()">
   <div class="add-image">
