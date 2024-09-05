@@ -15,12 +15,17 @@ export class AuthService{
   private userId!: any;
   private errorMessage!: any;
   private tokenTimer!: any;
+  private firstName = new Subject<string>();
   private authStatusListener = new Subject<boolean>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
   getToken = () => {
     return this.token;
+  }
+
+  getFirstName() {
+    return this.firstName.asObservable();
   }
 
   getError() {
@@ -39,10 +44,17 @@ export class AuthService{
     return this.authStatusListener.asObservable();
   }
 
-  createUser(email: string, password: string) {
-    const authData: AuthData = {email: email, password: password};
+  createUser(firstName: string, secondName: string, email: string, password: string) {
+    const authData: AuthData = {
+      firstName: firstName, 
+      secondName: secondName, 
+      email: email, 
+      password: password
+    };
+    
     return this.http.post<{message: string, result: string}>("http://localhost:3000/api/user/signup", authData)
       .subscribe(responseData => {
+        console.log(responseData);
         this.router.navigate(['/']);
       }, error => {
         this.authStatusListener.next(false);
@@ -50,10 +62,15 @@ export class AuthService{
   }
 
   login(email: string, password: string) {
-    const authData: AuthData = {email: email, password: password};
-    this.http.post<{ token: string, expiresIn: number, userId: string }>("http://localhost:3000/api/user/login", authData)
+    const authData: any = {
+      email: email, 
+      password: password
+    };
+
+    this.http.post<{ token: string, expiresIn: number, userId: string, email: string, firstName: string}>("http://localhost:3000/api/user/login", authData)
       .subscribe(responseData => {
         const token = responseData.token;
+        console.log("Data after login: " + responseData.firstName);
         this.token = token;
         if (token) {
           const expires = responseData.expiresIn;
@@ -61,6 +78,7 @@ export class AuthService{
           this.isAuth = true;
           this.userId = responseData.userId;
           this.authStatusListener.next(true);
+          this.firstName.next(responseData.firstName);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expires * 1000);
           this.saveAuthData(token, expirationDate, this.userId);
