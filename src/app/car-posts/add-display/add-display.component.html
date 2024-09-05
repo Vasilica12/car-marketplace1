@@ -1,0 +1,17 @@
+<div class="car-details-container">
+  <h2 class="car-title">{{ car.model }}</h2>
+  
+  <div class="car-details">
+    <div class="car-image">
+      <img [src]="car.imagePath" alt="{{ car.model }}" />
+    </div>
+    
+    <div class="car-info">
+      <p><strong>Descriere:</strong> {{ car.description }}</p>
+      <p><strong>Preț:</strong> {{ car.price }} €</p>
+      <p><strong>Telefon:</strong> {{ car.telephone }}</p>
+    </div>
+  </div>
+
+  <button mat-button color="primary" routerLink="/" class="back-button">Înapoi la listă</button>
+</div>

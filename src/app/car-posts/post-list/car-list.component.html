@@ -4,7 +4,9 @@
     <mat-card class="example-card small-card" appearance="outlined">
       <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-subtitle>{{ car.model }}</mat-card-subtitle>
+          <a mat-button color="primary" [routerLink]="['/add', car.id]">
+            <mat-card-subtitle>{{ car.model }}</mat-card-subtitle>
+          </a>
       </mat-card-header>
       <div class="car-image">
         <img [src]="car.imagePath" [alt]="car.model">
@@ -25,6 +27,7 @@
     </mat-card>
   </div>
 </div>
+
 <mat-paginator 
   [length]="totalCars" 
   [pageSize]="carsPerPage"
