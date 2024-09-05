@@ -13,3 +13,9 @@
   height: 40px;
   margin-right: 20px;
 }
+
+a:link, a:visited {
+  text-decoration: none;
+  color: #2b2a2a;
+  cursor: pointer;
+}

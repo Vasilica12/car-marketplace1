@@ -1,9 +1,9 @@
 <mat-toolbar color="primary">
   <div class="header-left">
-    <a routerLink="/">Car Matketplace</a>
+    <a routerLink="/">Car Marketplace</a>
   </div>
   <div class="header-right">
-    <button *ngIf="userAuth" mat-button routerLink="/create" routerLinkActive="mat-accent">Adauga test</button>
+    <button *ngIf="userAuth" mat-button routerLink="/create" routerLinkActive="mat-accent">Adauga anunț</button>
     <button *ngIf="!userAuth" mat-button routerLink="/login" routerLinkActive="mat-accent">Logare</button>
     <button *ngIf="!userAuth" mat-button routerLink="/signup" routerLinkActive="mat-accent">Inregistrare</button>
     <button *ngIf="userAuth" mat-button (click)="onLogout()">Iesi din cont</button>

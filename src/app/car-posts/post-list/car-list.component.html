@@ -1,29 +1,28 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
+
+<h1 class="page-title">Toate Anunțurile</h1>
+
 <div class="container" *ngIf="!isLoading && cars.length > 0">
-  <div *ngFor="let car of cars" class="card">
-    <mat-card class="example-card small-card" appearance="outlined">
-      <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-          <a mat-button color="primary" [routerLink]="['/add', car.id]">
-            <mat-card-subtitle>{{ car.model }}</mat-card-subtitle>
+  <div *ngFor="let car of cars" class="car-card">
+    <mat-card class="example-card car-list-card" appearance="outlined">
+      <div class="car-card-content">
+        <div class="car-image">
+          <a [routerLink]="['/add', car.id]" class="car-link">
+            <img [src]="car.imagePath" [alt]="car.model">
           </a>
-      </mat-card-header>
-      <div class="car-image">
-        <img [src]="car.imagePath" [alt]="car.model">
+        </div>
+        <div class="car-details">
+          <a [routerLink]="['/add', car.id]" class="car-link">
+            <mat-card-title class="car-title">{{ car.model }}</mat-card-title>
+          </a>
+          <mat-card-subtitle class="car-price">{{ car.price }} lei</mat-card-subtitle>
+          <mat-card-subtitle class="car-description">{{ car.description }}</mat-card-subtitle>
+          <div class="car-actions">
+            <a *ngIf="userAuth && userId === car.creator" mat-button color="primary" [routerLink]="['/edit', car.id]">Edit</a>
+            <button *ngIf="userAuth && userId === car.creator" mat-button color="warn" (click)="onDelete(car.id)">Delete</button>
+          </div>
+        </div>
       </div>
-      <mat-card-content>
-        <p>{{ car.description }}</p>
-      </mat-card-content>
-      <mat-card-content>
-        <p>{{ car.price }}</p>
-      </mat-card-content>
-      <mat-card-content>
-        <p>{{ car.telephone }}</p>
-      </mat-card-content>
-      <mat-card-actions>
-        <a *ngIf="userAuth && userId === car.creator" mat-button color="primary" [routerLink]="['/edit', car.id]">Edit</a>
-        <button mat-button *ngIf="userAuth && userId === car.creator" color="warn" (click)="onDelete(car.id)">Delete</button>
-      </mat-card-actions>
     </mat-card>
   </div>
 </div>
