@@ -35,6 +35,8 @@ export class HeaderComponent implements OnInit, OnDestroy{
     this.userAuth = true;
     // this.userAuth = this.authService.getIsAuth();
     // console.log("user auth after refresh 1 " + this.userAuth);
+    console.log("first name in the header " + this.authService.getFirstName());
+    // this.firstName = this.authService.getFirstName();
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuth => {
       this.userAuth = isAuth;
     });
