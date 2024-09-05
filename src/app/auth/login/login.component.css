@@ -1,5 +1,4 @@
 .example-form {
-
   width: 100%;
 }
 
@@ -13,6 +12,10 @@ h1 {
   margin: auto;
   width: 40%;
   padding: 10px;
+  background-color: #f1f1f1;
+  margin-top: 3rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .example-full-width {

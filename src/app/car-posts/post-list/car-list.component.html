@@ -25,8 +25,8 @@
           <mat-card-subtitle class="car-price">{{ car.price }} lei</mat-card-subtitle>
           <mat-card-subtitle class="car-description">{{ car.description }}</mat-card-subtitle>
           <div class="car-actions">
-            <a *ngIf="userAuth && userId === car.creator" mat-button color="primary" [routerLink]="['/edit', car.id]">Edit</a>
-            <button *ngIf="userAuth && userId === car.creator" mat-button color="warn" (click)="onDelete(car.id)">Delete</button>
+            <a *ngIf="userAuth && userId === car.creator" mat-button color="primary" [routerLink]="['/edit', car.id]">Editare</a>
+            <button *ngIf="userAuth && userId === car.creator" mat-button color="warn" (click)="onDelete(car.id)">Ștergere</button>
           </div>
         </div>
       </div>
