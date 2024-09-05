@@ -2,8 +2,15 @@
 
 <h1 class="page-title">Toate Anunțurile</h1>
 
-<div class="container" *ngIf="!isLoading && cars.length > 0">
-  <div *ngFor="let car of cars" class="car-card">
+<div class="filter-container">
+  <mat-form-field appearance="fill">
+    <mat-label>Filtrează după model</mat-label>
+    <input matInput (input)="onFilterChange($event)" placeholder="Introdu modelul mașinii">
+  </mat-form-field>
+</div>
+
+<div class="container" *ngIf="!isLoading && filteredCars.length > 0">
+  <div *ngFor="let car of filteredCars" class="car-card">
     <mat-card class="example-card car-list-card" appearance="outlined">
       <div class="car-card-content">
         <div class="car-image">

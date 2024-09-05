@@ -94,3 +94,7 @@ mat-paginator {
   display: flex;
   justify-content: center;
 }
+
+mat-spinner {
+  margin: auto;
+}
